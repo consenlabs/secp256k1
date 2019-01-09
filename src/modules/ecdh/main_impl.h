@@ -28,7 +28,7 @@ int secp256k1_ecdh(const secp256k1_context* ctx, unsigned char *result, const se
     } else {
         unsigned char x[32];
         unsigned char y[1];
-        secp256k1_sha256 sha;
+        // secp256k1_sha256 sha;
 
         secp256k1_ecmult_const(&res, &pt, &s, 256);
         secp256k1_ge_set_gej(&pt, &res);
@@ -38,12 +38,14 @@ int secp256k1_ecdh(const secp256k1_context* ctx, unsigned char *result, const se
         secp256k1_fe_normalize(&pt.x);
         secp256k1_fe_normalize(&pt.y);
         secp256k1_fe_get_b32(x, &pt.x);
-        y[0] = 0x02 | secp256k1_fe_is_odd(&pt.y);
+        // y[0] = 0x02 | secp256k1_fe_is_odd(&pt.y);
 
-        secp256k1_sha256_initialize(&sha);
-        secp256k1_sha256_write(&sha, y, sizeof(y));
-        secp256k1_sha256_write(&sha, x, sizeof(x));
-        secp256k1_sha256_finalize(&sha, result);
+        // secp256k1_sha256_initialize(&sha);
+        // secp256k1_sha256_write(&sha, y, sizeof(y));
+        // secp256k1_sha256_write(&sha, x, sizeof(x));
+        // secp256k1_sha256_finalize(&sha, result);
+
+        secp256k1_fe_get_b32(result, &pt.x);
         ret = 1;
     }
 
